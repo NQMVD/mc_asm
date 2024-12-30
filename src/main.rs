@@ -37,18 +37,18 @@ fn load_file(file_name: &str) -> Result<Code> {
     Ok(lines)
 }
 
-fn assemble(mut assembly_code: Code) -> Result<Code> {
+fn clean_up(code: Code) -> Code {
     let comment_symbol = "//";
-    let mut machine_code: Code = Vec::new();
+    let mut cleaned_code: Code = Vec::new();
 
-    // clean up: remove comments and empty lines
-    assembly_code = assembly_code
+    // remove comments and empty lines
+    cleaned_code = code
         .iter()
         .filter(|line| !line.is_empty() && !line.starts_with(comment_symbol))
         .map_into()
         .collect::<Code>();
 
-    assembly_code = assembly_code
+    cleaned_code = cleaned_code
         .iter()
         .map(|line| {
             if line.contains(comment_symbol) {
@@ -59,6 +59,20 @@ fn assemble(mut assembly_code: Code) -> Result<Code> {
             }
         })
         .collect::<Code>();
+
+    cleaned_code
+}
+
+fn validate_syntax(code: Code) -> Result<()> {
+    // validate operands
+    // validate operand count
+    Ok(())
+}
+
+fn assemble(mut assembly_code: Code) -> Result<Code> {
+    let mut machine_code: Code = Vec::new();
+
+    assembly_code = clean_up(assembly_code);
 
     assembly_code.iter().for_each(|line| println!("{line}"));
 
@@ -74,69 +88,6 @@ fn assemble(mut assembly_code: Code) -> Result<Code> {
     //             let dest = args[0];
     //             let src = args[1];
     //             machine_code.push(format!("mov {}, {}", dest, src));
-    //         }
-    //         "add" => {
-    //             let dest = args[0];
-    //             let src = args[1];
-    //             machine_code.push(format!("add {}, {}", dest, src));
-    //         }
-    //         "sub" => {
-    //             let dest = args[0];
-    //             let src = args[1];
-    //             machine_code.push(format!("sub {}, {}", dest, src));
-    //         }
-    //         "mul" => {
-    //             let dest = args[0];
-    //             let src = args[1];
-    //             machine_code.push(format!("mul {}, {}", dest, src));
-    //         }
-    //         "div" => {
-    //             let dest = args[0];
-    //             let src = args[1];
-    //             machine_code.push(format!("div {}, {}", dest, src));
-    //         }
-    //         "jmp" => {
-    //             let label = args[0];
-    //             machine_code.push(format!("jmp {}", label));
-    //         }
-    //         "je" => {
-    //             let label = args[0];
-    //             machine_code.push(format!("je {}", label));
-    //         }
-    //         "jne" => {
-    //             let label = args[0];
-    //             machine_code.push(format!("jne {}", label));
-    //         }
-    //         "jg" => {
-    //             let label = args[0];
-    //             machine_code.push(format!("jg {}", label));
-    //         }
-    //         "jge" => {
-    //             let label = args[0];
-    //             machine_code.push(format!("jge {}", label));
-    //         }
-    //         "jl" => {
-    //             let label = args[0];
-    //             machine_code.push(format!("jl {}", label));
-    //         }
-    //         "jle" => {
-    //             let label = args[0];
-    //             machine_code.push(format!("jle {}", label));
-    //         }
-    //         "call" => {
-    //             let label = args[0];
-    //             machine_code.push(format!("call {}", label));
-    //         }
-    //         "ret" => {
-    //             machine_code.push("ret".to_string());
-    //         }
-    //         "push" => {
-    //             let src = args[0];
-    //             machine_code.push(format!("push {}", src));
-    //         }
-    //         "pop" => {
-    //             let dest = args[0];
-    //             machine_code.push(format!("pop {}", dest));
     //         }
     //         "nop" => {
     //             machine_code.push("nop".to_string());
