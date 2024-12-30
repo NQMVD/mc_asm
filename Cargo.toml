@@ -1,0 +1,21 @@
+[package]
+authors = ["Noah <noahbuergler@proton.me>"]
+name = "mc_asm"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.95"
+clap = { version = "4.5.23", features = ["cargo", "derive", "env"] }
+itertools = "0.13.0"
+paris = { version = "1.5.15", features = ["macros"] }
+serde = { version = "1.0.217", features = ["derive"] }
+strp = "1.1.2"
+tabular = "0.2.0"
+toml = "0.8.19"
+
+[profile.dev]
+split-debuginfo = "unpacked"
+
+[profile.release]
+strip = true
