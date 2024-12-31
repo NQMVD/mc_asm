@@ -1,0 +1,188 @@
+    Checking mc_asm v0.1.0 (/Users/noahburgler/Coding/RUST/mc_asm)
+error[E0308]: mismatched types
+   --> src/main.rs:268:22
+    |
+257 |               Box::new(|w: &[String]| {
+    |                        -------------- the expected closure
+...
+268 |               Box::new(|w: &[String]| {
+    |  _____________--------_^
+    | |             |
+    | |             arguments to this function are incorrect
+269 | |                 vec![
+270 | |                     "add".to_string(),
+271 | |                     w[1].clone(),
+...   |
+274 | |                 ]
+275 | |             }),
+    | |_____________^ expected closure, found a different closure
+    |
+    = note: expected closure `{closure@src/main.rs:257:22: 257:36}`
+               found closure `{closure@src/main.rs:268:22: 268:36}`
+    = note: no two closures, even if identical, have the same type
+    = help: consider boxing your closure and/or using it as a trait object
+note: associated function defined here
+   --> /Users/noahburgler/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/boxed.rs:255:12
+    |
+255 |     pub fn new(x: T) -> Self {
+    |            ^^^
+
+error[E0308]: mismatched types
+   --> src/main.rs:279:22
+    |
+257 |               Box::new(|w: &[String]| {
+    |                        -------------- the expected closure
+...
+279 |               Box::new(|w: &[String]| {
+    |  _____________--------_^
+    | |             |
+    | |             arguments to this function are incorrect
+280 | |                 vec!["add".to_string(), w[1].clone(), w[1].clone(), w[2].clone()]
+281 | |             }),
+    | |_____________^ expected closure, found a different closure
+    |
+    = note: expected closure `{closure@src/main.rs:257:22: 257:36}`
+               found closure `{closure@src/main.rs:279:22: 279:36}`
+    = note: no two closures, even if identical, have the same type
+    = help: consider boxing your closure and/or using it as a trait object
+note: associated function defined here
+   --> /Users/noahburgler/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/boxed.rs:255:12
+    |
+255 |     pub fn new(x: T) -> Self {
+    |            ^^^
+
+error[E0308]: mismatched types
+   --> src/main.rs:285:22
+    |
+257 |             Box::new(|w: &[String]| {
+    |                      -------------- the expected closure
+...
+285 |             Box::new(|w: &[String]| vec!["adi".to_string(), w[1].clone(), "1".to_string()]),
+    |             -------- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected closure, found a different closure
+    |             |
+    |             arguments to this function are incorrect
+    |
+    = note: expected closure `{closure@src/main.rs:257:22: 257:36}`
+               found closure `{closure@src/main.rs:285:22: 285:36}`
+    = note: no two closures, even if identical, have the same type
+    = help: consider boxing your closure and/or using it as a trait object
+note: associated function defined here
+   --> /Users/noahburgler/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/boxed.rs:255:12
+    |
+255 |     pub fn new(x: T) -> Self {
+    |            ^^^
+
+error[E0308]: mismatched types
+   --> src/main.rs:289:22
+    |
+257 |             Box::new(|w: &[String]| {
+    |                      -------------- the expected closure
+...
+289 |             Box::new(|w: &[String]| vec!["adi".to_string(), w[1].clone(), "-1".to_string()]),
+    |             -------- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected closure, found a different closure
+    |             |
+    |             arguments to this function are incorrect
+    |
+    = note: expected closure `{closure@src/main.rs:257:22: 257:36}`
+               found closure `{closure@src/main.rs:289:22: 289:36}`
+    = note: no two closures, even if identical, have the same type
+    = help: consider boxing your closure and/or using it as a trait object
+note: associated function defined here
+   --> /Users/noahburgler/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/boxed.rs:255:12
+    |
+255 |     pub fn new(x: T) -> Self {
+    |            ^^^
+
+error[E0308]: mismatched types
+   --> src/main.rs:293:22
+    |
+257 |               Box::new(|w: &[String]| {
+    |                        -------------- the expected closure
+...
+293 |               Box::new(|w: &[String]| {
+    |  _____________--------_^
+    | |             |
+    | |             arguments to this function are incorrect
+294 | |                 vec![
+295 | |                     "nor".to_string(),
+296 | |                     w[1].clone(),
+...   |
+299 | |                 ]
+300 | |             }),
+    | |_____________^ expected closure, found a different closure
+    |
+    = note: expected closure `{closure@src/main.rs:257:22: 257:36}`
+               found closure `{closure@src/main.rs:293:22: 293:36}`
+    = note: no two closures, even if identical, have the same type
+    = help: consider boxing your closure and/or using it as a trait object
+note: associated function defined here
+   --> /Users/noahburgler/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/boxed.rs:255:12
+    |
+255 |     pub fn new(x: T) -> Self {
+    |            ^^^
+
+error[E0308]: mismatched types
+   --> src/main.rs:304:22
+    |
+257 |               Box::new(|w: &[String]| {
+    |                        -------------- the expected closure
+...
+304 |               Box::new(|w: &[String]| {
+    |  _____________--------_^
+    | |             |
+    | |             arguments to this function are incorrect
+305 | |                 vec![
+306 | |                     "sub".to_string(),
+307 | |                     "r0".to_string(),
+...   |
+310 | |                 ]
+311 | |             }),
+    | |_____________^ expected closure, found a different closure
+    |
+    = note: expected closure `{closure@src/main.rs:257:22: 257:36}`
+               found closure `{closure@src/main.rs:304:22: 304:36}`
+    = note: no two closures, even if identical, have the same type
+    = help: consider boxing your closure and/or using it as a trait object
+note: associated function defined here
+   --> /Users/noahburgler/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/boxed.rs:255:12
+    |
+255 |     pub fn new(x: T) -> Self {
+    |            ^^^
+
+error[E0308]: mismatched types
+   --> src/main.rs:313:9
+    |
+255 |           m.insert(
+    |           - ... which causes `m` to have type `std::collections::HashMap<&str, std::boxed::Box<{closure@src/main.rs:257:22: 257:36}>>`
+256 |               "cmp",
+257 |               Box::new(|w: &[String]| {
+    |               -        -------------- the found closure
+    |  _____________|
+    | |
+258 | |                 vec![
+259 | |                     "sub".to_string(),
+260 | |                     w[1].clone(),
+...   |
+263 | |                 ]
+264 | |             }),
+    | |______________- this argument has type `std::boxed::Box<{closure@src/main.rs:257:22: 257:36}>`...
+...
+313 |           m
+    |           ^ expected `dyn std::ops::Fn`, found closure
+    |
+    = note: expected struct `std::collections::HashMap<&_, std::boxed::Box<dyn for<'a> std::ops::Fn(&'a [std::string::String]) -> std::vec::Vec<std::string::String>>>`
+               found struct `std::collections::HashMap<&_, std::boxed::Box<{closure@src/main.rs:257:22: 257:36}>>`
+
+warning: variable does not need to be mutable
+   --> src/main.rs:556:13
+    |
+556 |         let mut machine_code: u16 = ((opcode_num as u16) << 12) & 0xFFFF;
+    |             ----^^^^^^^^^^^^
+    |             |
+    |             help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` on by default
+
+For more information about this error, try `rustc --explain E0308`.
+warning: `mc_asm` (bin "mc_asm") generated 1 warning
+error: could not compile `mc_asm` (bin "mc_asm") due to 7 previous errors; 1 warning emitted

@@ -12,11 +12,11 @@ def assemble(assembly_filename, mc_filename):
 
     # Populate symbol table
     symbols = {}
-    
+
     opcodes = ['nop', 'hlt', 'add', 'sub', 'nor', 'and', 'xor', 'rsh', 'ldi', 'adi', 'jmp', 'brh', 'cal', 'ret', 'lod', 'str']
     for index, symbol in enumerate(opcodes):
         symbols[symbol] = index
-    
+
     registers = ['r0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'r10', 'r11', 'r12', 'r13', 'r14', 'r15']
     for index, symbol in enumerate(registers):
         symbols[symbol] = index
@@ -34,7 +34,7 @@ def assemble(assembly_filename, mc_filename):
     for index, symbol in enumerate(conditions4):
         symbols[symbol] = index
 
-    ports = ['pixel_x', 'pixel_y', 'draw_pixel', 'clear_pixel', 'load_pixel', 'buffer_screen', 'clear_screen_buffer', 
+    ports = ['pixel_x', 'pixel_y', 'draw_pixel', 'clear_pixel', 'load_pixel', 'buffer_screen', 'clear_screen_buffer',
              'write_char', 'buffer_chars', 'clear_chars_buffer', 'show_number', 'clear_number', 'signed_mode', 'unsigned_mode', 'rng', 'controller_input']
     for index, symbol in enumerate(ports):
         symbols[symbol] = index + 240
@@ -46,10 +46,10 @@ def assemble(assembly_filename, mc_filename):
     # Extract definitions and labels
     def is_definition(word):
         return word == 'define'
-    
+
     def is_label(word):
         return word[0] == '.'
-    
+
     pc = 0
     instructions = []
 
@@ -100,7 +100,7 @@ def assemble(assembly_filename, mc_filename):
         if words[-1] in ['"', "'"] and words[-2] in ['"', "'"]:
             words = words[:-1]
             words[-1] = "' '"
-        
+
         # Begin translation
         opcode = words[0]
         machine_code = symbols[opcode] << 12
@@ -109,7 +109,7 @@ def assemble(assembly_filename, mc_filename):
         # Number of operands check
         if opcode in ['nop', 'hlt', 'ret'] and len(words) != 1:
             exit(f'Incorrect number of operands for {opcode} on line {pc}')
-        
+
         if opcode in ['jmp', 'cal'] and len(words) != 2:
             exit(f'Incorrect number of operands for {opcode} on line {pc}')
 
@@ -142,7 +142,7 @@ def assemble(assembly_filename, mc_filename):
             if words[2] < -128 or words[2] > 255: # 2s comp [-128, 127] or uint [0, 255]
                 exit(f'Invalid immediate for {opcode} on line {pc}')
             machine_code |= words[2] & (2 ** 8 - 1)
-        
+
         # Instruction memory address
         if opcode in ['jmp', 'brh', 'cal']:
             if words[-1] != (words[-1] % (2 ** 10)):
