@@ -1,6 +1,6 @@
 # MC_ASM
 
-This is the seperate repo for my [rust rewrite]() of mattbatwings [BatPU-2]().
+This is the seperate repo for my [rust rewrite]() of mattbatwings [BatPU-2]() assembler.
 
 ### Roadmap:
 **v0.1.0:**
@@ -24,5 +24,5 @@ This is the seperate repo for my [rust rewrite]() of mattbatwings [BatPU-2]().
 **Future versions:**
 - multiple assembly languages?
 - hot-reloading?
-
-![screenshot](./diff.png)
+- [assembler-plus](https://github.com/SpideyZac/assembler-plus)
+- [BatPU VM](https://github.com/ZpippoZ/BatPU2-VM-Java)
