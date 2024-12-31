@@ -1,35 +1,28 @@
-# Explanation
+# MC_ASM
 
-Here's a work in progress rewrite in Rust.
+This is the seperate repo for my [rust rewrite]() of mattbatwings [BatPU-2]().
 
-**Why?** Two reasons:
-1. i don't like python*
-2. i want it to be a proper, standalone, all-in-one command line tool that you just download and use
+### Roadmap:
+**v0.1.0:**
+- [x] a 1-to-1 python-to-rust translated implementation of the assembler program
 
-**The Roadmap:**
-- [x] 1-to-1 assembler in rust
-- [ ] `.schem` file generator
-- [ ] cli tool with subcommands
+**v0.2.0:**
+- [ ] `.schem` file generator implementation in rust
+
+**v1.0.0:**
+- [ ] all-in-one cli program
+	- [ ] subcommands
+	- [ ] shell completions
+	- [ ] `.bat files` for my windows fellas (so you can just drag a program file onto the bat file on your desktop with no terminal)
+
+**v1.1.0:**
 - [ ] `.litematic` file generator
+
+**v2.0.0:**
 - [ ] assembler rewrite in *actual, idiomatic* rust
 
-**Disclaimer:**
-I'm not an expert... in any part of this.
-I used the YT series to get a better understanding of how computers work on the physical level and i still don't fully understand it. I hope writing an assembler for it helps lol.
+**Future versions:**
+- multiple assembly languages?
+- hot-reloading?
 
-Also not an expert in Rust either, but i know enough to make cool cli programs with it.
-I frequently consult my good friend over at OpenAI
-
-
-
-
-= im not an expert, had help from chatgpt
-
-Technical view:
-using clap, custom errors, mc_schem crate
-
-
-
-
-\* = i hate it, lua is better, planned lua code, more
-> don't do python kids.
+![screenshot](./diff.png)

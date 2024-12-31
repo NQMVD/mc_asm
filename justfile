@@ -13,6 +13,17 @@ pytest:
 rusttest:
     cargo run -- testing/test.as testing/rusttest.mc
 
+@diffall:
+    difft testing/2048_py.mc testing/2048_rs.mc
+    difft testing/calculator_py.mc testing/calculator_rs.mc
+    difft testing/connect4_py.mc testing/connect4_rs.mc
+    difft testing/dvd_py.mc testing/dvd_rs.mc
+    difft testing/gol_py.mc testing/gol_rs.mc
+    difft testing/helloworld_py.mc testing/helloworld_rs.mc
+    difft testing/maze_py.mc testing/maze_rs.mc
+    difft testing/minesweeper_py.mc testing/minesweeper_rs.mc
+    difft testing/tetris_py.mc testing/tetris_rs.mc
+
 
 @testall:
     python3 py/assembler.py testing/programs/2048.as testing/2048_py.mc
@@ -35,12 +46,4 @@ rusttest:
     cargo run -- testing/programs/minesweeper.as testing/minesweeper_rs.mc
     cargo run -- testing/programs/tetris.as testing/tetris_rs.mc
 
-    difft testing/2048_py.mc testing/2048_rs.mc
-    difft testing/calculator_py.mc testing/calculator_rs.mc
-    difft testing/connect4_py.mc testing/connect4_rs.mc
-    difft testing/dvd_py.mc testing/dvd_rs.mc
-    difft testing/gol_py.mc testing/gol_rs.mc
-    difft testing/helloworld_py.mc testing/helloworld_rs.mc
-    difft testing/maze_py.mc testing/maze_rs.mc
-    difft testing/minesweeper_py.mc testing/minesweeper_rs.mc
-    difft testing/tetris_py.mc testing/tetris_rs.mc
+    just diffall
