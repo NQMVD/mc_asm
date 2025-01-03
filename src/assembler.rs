@@ -71,7 +71,7 @@ fn operand_error(msg: &str, line_num: usize, line: Option<&str>) -> OperandError
 }
 
 /// old assembler
-pub fn assemble_old(mut assembly_code: Code) -> Result<Code> {
+pub fn assemble_old(assembly_code: Code) -> Result<Code> {
     // -------------------- Constants --------------------
     const MAX_REGISTER: i32 = 1 << 4; // 2**4
     const MAX_IMMEDIATE: i32 = 255;

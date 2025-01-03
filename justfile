@@ -4,6 +4,12 @@ _default:
 run:
     cargo run
 
+test:
+    cargo build
+    ./target/debug/mc_asm assemble demo.as --old
+    ./target/debug/mc_asm generate demo.mc
+    ./target/debug/mc_asm assemble demo.as lol.mc --old
+
 check:
     cargo check
 

@@ -8,7 +8,7 @@ use std::{fs, io::Lines};
 use anyhow::{bail, Result};
 use clap::{Parser, Subcommand, ValueEnum};
 use itertools::*;
-use paris::Logger;
+use paris::{error, info, success, warn, Logger};
 use serde::{Deserialize, Serialize};
 
 mod assembler;
@@ -64,6 +64,8 @@ enum Commands {
         /// optional output file
         schem_file: Option<String>,
     },
+    /// Remove all .mc files
+    Clean,
 }
 
 fn load_file(file_name: &str) -> Result<Code> {
@@ -76,7 +78,21 @@ fn load_file(file_name: &str) -> Result<Code> {
     Ok(lines)
 }
 
+fn write_to_file(file_name: String, code: Code) -> Result<()> {
+    // then check if the file already exists
+    // if it does, warn the user but continue
+    // if it doesn't, write the file
+    if fs::exists(&file_name)? {
+        warn!("File already exists, overwriting...");
+    }
+
+    let contents = code.join("\n");
+    fs::write(file_name, contents)?;
+    Ok(())
+}
+
 fn main() -> Result<()> {
+    #[allow(unused_mut)]
     let mut log = Logger::new();
     let cli = Cli::parse();
 
@@ -86,24 +102,15 @@ fn main() -> Result<()> {
             mc_file,
             old,
         } => {
-            log.info("Assembling...");
+            info!("Assembling...");
 
             if !as_file.ends_with(".as") {
-                log.error("File must be a .as file");
+                error!("File must be a .as file");
                 return Ok(());
             }
 
             // borrow because we might need it again
             let assembly_code = load_file(&as_file)?;
-
-            // DEBUG
-            log.info("File contents:");
-
-            for line in &assembly_code {
-                println!("> {line}");
-            }
-            println!();
-            // END DEBUG
 
             // move to consume
             // let machine_code = assemble_old(assembly_code)?;
@@ -113,20 +120,16 @@ fn main() -> Result<()> {
                 assemble_new(assembly_code)?
             };
 
-            log.success("Assembled!");
-
-            // DEBUG
-            for line in &machine_code {
-                println!("= {line}");
-            }
-            println!();
-            // END DEBUG
+            success!("Assembled!");
 
             // write to file
-            if let Some(file) = mc_file {
-                fs::write(file, machine_code.join("\n"))?;
-                log.success("Wrote to file.");
-            }
+            // first check if output file name is provided
+            // if not, use the same name as the input file
+            // but with a .mc extension
+            let mc_file = mc_file.unwrap_or_else(|| as_file.replace(".as", ".mc"));
+            write_to_file(mc_file, machine_code)?;
+
+            success!("Wrote to file!");
 
             Ok(())
         }
@@ -134,10 +137,10 @@ fn main() -> Result<()> {
             mc_file,
             schem_file,
         } => {
-            log.info("Generating...");
+            info!("Generating...");
 
             if !mc_file.ends_with(".mc") {
-                log.error("File must be a .mc file");
+                error!("File must be a .mc file");
                 return Ok(());
             }
 
@@ -145,7 +148,7 @@ fn main() -> Result<()> {
             let machine_code = load_file(&mc_file)?;
 
             // DEBUG
-            log.info("File contents:");
+            info!("File contents:");
 
             for line in &machine_code {
                 println!("> {line}");
@@ -159,9 +162,38 @@ fn main() -> Result<()> {
             as_file,
             schem_file,
         } => {
-            log.info("Full mode...");
+            info!("Full mode...");
 
             let assembly_code = load_file(&as_file)?;
+            Ok(())
+        }
+        Commands::Clean => {
+            info!("Cleaning...");
+
+            // get all files in the current directory
+            let files = fs::read_dir(".")?;
+
+            // filter out all .mc files
+            let mc_files = files
+                .filter_map(|file| {
+                    let file = file.ok()?;
+                    let file_name = file.file_name();
+                    let file_name = file_name.to_string_lossy();
+                    if file_name.ends_with(".mc") {
+                        Some(file_name.to_string())
+                    } else {
+                        None
+                    }
+                })
+                .collect::<Vec<String>>();
+
+            // delete all .mc files
+            for file in &mc_files {
+                fs::remove_file(file)?;
+            }
+
+            success!("Cleaned! ({} file(s) removed)", mc_files.len());
+
             Ok(())
         }
     }
