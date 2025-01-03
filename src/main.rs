@@ -43,6 +43,10 @@ enum Commands {
 
         /// optional output file
         mc_file: Option<String>,
+
+        /// optional old flag
+        #[clap(long)]
+        old: bool,
     },
     /// Generates a .schem file
     Generate {
@@ -77,7 +81,11 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Assemble { as_file, mc_file } => {
+        Commands::Assemble {
+            as_file,
+            mc_file,
+            old,
+        } => {
             log.info("Assembling...");
 
             if !as_file.ends_with(".as") {
@@ -98,16 +106,27 @@ fn main() -> Result<()> {
             // END DEBUG
 
             // move to consume
-            let machine_code = assemble_old(assembly_code)?;
+            // let machine_code = assemble_old(assembly_code)?;
+            let machine_code = if old {
+                assemble_old(assembly_code)?
+            } else {
+                assemble_new(assembly_code)?
+            };
 
             log.success("Assembled!");
 
             // DEBUG
-            for line in machine_code {
+            for line in &machine_code {
                 println!("= {line}");
             }
             println!();
             // END DEBUG
+
+            // write to file
+            if let Some(file) = mc_file {
+                fs::write(file, machine_code.join("\n"))?;
+                log.success("Wrote to file.");
+            }
 
             Ok(())
         }

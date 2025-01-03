@@ -425,7 +425,7 @@ pub fn assemble_old(mut assembly_code: Code) -> Result<Code> {
         // immediate
         if matches!(opcode, OPC_LDI | OPC_ADI) {
             let imm = words[2];
-            if imm < MIN_IMMEDIATE || imm > MAX_IMMEDIATE {
+            if !(MIN_IMMEDIATE..=MAX_IMMEDIATE).contains(&imm) {
                 return Err(operand_error(
                     &format!("Invalid immediate value '{}'", imm),
                     pc,
@@ -451,7 +451,7 @@ pub fn assemble_old(mut assembly_code: Code) -> Result<Code> {
         // offset
         if matches!(opcode, OPC_LOD | OPC_STR) {
             let offset = words[3];
-            if offset < MIN_OFFSET || offset > MAX_OFFSET {
+            if !(MIN_OFFSET..=MAX_OFFSET).contains(&offset) {
                 return Err(operand_error(
                     &format!("Invalid offset '{}'", offset),
                     pc,
@@ -505,7 +505,7 @@ pub fn assemble_old(mut assembly_code: Code) -> Result<Code> {
             // define <sym> <val>
             if tokens.len() >= 3 {
                 if let Ok(val) = i32::from_str_radix(
-                    &tokens[2].trim_start_matches("0x"),
+                    tokens[2].trim_start_matches("0x"),
                     if tokens[2].contains("0x") { 16 } else { 10 },
                 ) {
                     symbols.insert(tokens[1].clone(), val);
@@ -575,7 +575,7 @@ pub fn assemble_old(mut assembly_code: Code) -> Result<Code> {
 
         // write 16-bit binary
         // writeln!(result_machine_code, "{:016b}", code)?;
-        result_machine_code.push(code.to_string());
+        result_machine_code.push(format!("{:016b}", code));
     }
 
     Ok(result_machine_code)
