@@ -15,6 +15,7 @@ mod assembler;
 mod generator;
 
 use assembler::{assemble_new, assemble_old};
+use generator::generate;
 
 type Code = Vec<String>;
 
@@ -155,6 +156,11 @@ fn main() -> Result<()> {
             }
             println!();
             // END DEBUG
+
+            let schem_code = generate(machine_code)?;
+
+            // write to file
+            // https://github.com/SlopeCraft/mc_schem/blob/5f4c164be26293ca9705c206ce13846b729716a4/tests/tests.rs#L463
 
             Ok(())
         }
