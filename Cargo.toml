@@ -8,6 +8,7 @@ edition = "2021"
 anyhow = "1.0.95"
 clap = { version = "4.5.23", features = ["cargo", "derive", "env"] }
 itertools = "0.13.0"
+mc_schem = "1.1.2"
 paris = { version = "1.5.15", features = ["macros"] }
 regex = "1.11.1"
 serde = { version = "1.0.217", features = ["derive"] }

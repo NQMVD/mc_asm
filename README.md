@@ -24,5 +24,6 @@ This is the seperate repo for my [rust rewrite]() of mattbatwings [BatPU-2]() as
 **Future versions:**
 - multiple assembly languages?
 - hot-reloading?
+- image generation (using [silicon](https://github.com/Aloxaf/silicon))?
 - [assembler-plus](https://github.com/SpideyZac/assembler-plus)
 - [BatPU VM](https://github.com/ZpippoZ/BatPU2-VM-Java)
